@@ -1,5 +1,5 @@
 use anyhow::{Result, bail};
-use infallible::absurd_future;
+use absurd_future::absurd_future;
 use std::{convert::Infallible, time::Duration};
 
 use tokio::task::JoinSet;
@@ -20,7 +20,7 @@ async fn task_one() -> Infallible {
 async fn task_two() -> Result<Infallible> {
     let mut counter = 1;
     loop {
-        println!("Hello from task 1");
+        println!("Hello from task 2");
         counter += 1;
         tokio::time::sleep(Duration::from_secs(1)).await;
         if counter >= 3 {
@@ -38,7 +38,7 @@ async fn main_inner() -> Result<Infallible> {
     match join_set.join_next().await {
         Some(result) => match result {
             Ok(res) => match res {
-                Ok(_res) => bail!("Impossible: Infalliable witnessed!"),
+                Ok(_res) => bail!("Impossible: Infallible witnessed!"),
                 Err(e) => {
                     join_set.abort_all();
                     bail!("Task exited with {e}")
