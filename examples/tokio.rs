@@ -1,5 +1,5 @@
-use anyhow::{Result, bail};
 use absurd_future::absurd_future;
+use anyhow::{bail, Result};
 use std::{convert::Infallible, time::Duration};
 
 use tokio::task::JoinSet;
@@ -42,8 +42,8 @@ async fn main_inner() -> Result<Infallible> {
                 Err(e) => {
                     join_set.abort_all();
                     bail!("Task exited with {e}")
-                },
-                            },
+                }
+            },
             Err(e) => {
                 join_set.abort_all();
                 bail!("Task exited with {e}")
@@ -54,5 +54,4 @@ async fn main_inner() -> Result<Infallible> {
             bail!("No tasks found in task set")
         }
     }
-
 }
